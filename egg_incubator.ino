@@ -6,10 +6,10 @@
 #include <avr/io.h>
 #include <stdio.h>
 #include <math.h>
-//*********************************Definicion e inicializacion de los pines********************************
+//*********************************Definicion e inicializacion de los pines********************************//
 
 // Pines para el controlador PID
-const int  =A3; //Punto de operación
+const int PIP=A3; //Punto de operación
 float diferencia;
 float rango;
 float porcentaje_humedad;
@@ -37,21 +37,21 @@ const int rx_tx_com=13; // Pin para la comunicacion con la computadora
 
 const int resistor_calienta = 9; // Pin para el esistor para calentar
 
-Adafruit_PCD8544 pantalla_led = Adafruit_PCD8544(7, 5, 6, 4, 8); // Pantalla PCD8544
+Adafruit_PCD8544 display = Adafruit_PCD8544(7, 5, 6, 4, 8); // Pantalla PCD8544
 
 
-void make_setup() {
-  """ Se inicia el puerto serial """
+void setup() {
+  /// Se inicia el puerto serial
   Serial.begin(9600); 
-   """Configuracion de la pantalla de display"""
-  pantalla_led.begin();
-  pantalla_led.setContrast(50); 
-  pantalla_led.pantalla_led(); 
+  ///Configuracion de la pantalla de display
+  display.begin();
+  display.setContrast(50); 
+  display.display(); 
   delay(500);
-  pantalla_led.clearDisplay();   
-  pantalla_led.setTextSize(1);  
-  pantalla_led.setTextColor(BLACK); 
-  """ Configurar pines de interes como una salida"
+  display.clearDisplay();   
+  display.setTextSize(1);  
+  display.setTextColor(BLACK); 
+  ///Configurar pines de interes como una salida
   pinMode(Led_alto,OUTPUT);
   pinMode(Led_bajo,OUTPUT);
   pinMode(rx_tx_com, INPUT);
@@ -93,7 +93,7 @@ float resistor_temperatura(float temp_objetivo){
 
 void alerta(){
 
- """Funcion para controlar los LEDs y dar alertas segun la temperatura"""
+ ///Funcion para controlar los LEDs y dar alertas segun la temperatura
 
  // Alerta cuando la temperatura esta por debajo de los 32 grados. Leds azules.
  if(temperature_sh<32.0){  
@@ -121,7 +121,7 @@ void alerta(){
 
 float termistor_dar_temperatura(){
 
- """Funcion para leer la entrada del termistor y obtener la temperatura"""
+ //Funcion para leer la entrada del termistor y obtener la temperatura
 
  tension_v= analogRead(termistor_principal);
  term_resistor = resistor_1 * (1023.0 / (float)tension_v - 1.0);
@@ -133,26 +133,26 @@ float termistor_dar_temperatura(){
 
 
 
-void ciclo() { 
+void loop() { 
 	int control = 0;
 	porcentaje_humedad = (analogRead(A3));
 	alerta();
-	pantalla_led.print("Temperatura es: \n");
-	pantalla_led.print(termistor_dar_temperatura());
-	pantalla_led.print("C"); 
-	pantalla_led.print("\n");
-	pantalla_led.print("Humedad es:");
-	pantalla_led.print(analogRead(dht11_humedad)/10.23);
-	pantalla_led.print("%"); 
-	pantalla_led.print("\n");
-	pantalla_led.print("Punto de Op. es:");
-	pantalla_led.print(porcentaje_humedad/10.23); 
-	pantalla_led.print("\n");
-	pantalla_led.print("Intervalo es:");
-	pantalla_led.print(rango);
-	pantalla_led.pantalla_led();
+	display.print("Temperatura es: \n");
+	display.print(termistor_dar_temperatura());
+	display.print("C"); 
+	display.print("\n");
+	display.print("Humedad es:");
+	display.print(analogRead(dht11_humedad)/10.23);
+	display.print("%"); 
+	display.print("\n");
+	display.print("Punto de Op. es:");
+	display.print(porcentaje_humedad/10.23); 
+	display.print("\n");
+	display.print("Intervalo es:");
+	display.print(rango);
+	display.display();
 	delay(500);
-	pantalla_led.clearDisplay();
+	display.clearDisplay();
 	if(digitalRead(rx_tx_com)==LOW){ 
 		if(control==0){
 			Serial.print("Temperatura,Humedad");
@@ -166,11 +166,11 @@ void ciclo() {
 			Serial.print("\n");
 		}
 	}
-	}
+	
 	
 	termistor_dar_temperatura();
 
-	"""Controlador PID"""
+	///Controlador PID
 	porcentaje_humedad_nuevo = porcentaje_humedad/5.1;
 	diferencia = porcentaje_humedad_nuevo - temperature_sh;
 	if (diferencia != 0){ 
