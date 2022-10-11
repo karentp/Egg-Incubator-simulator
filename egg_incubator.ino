@@ -102,7 +102,7 @@ void alerta(){
     
  }
 
-// Alerta cuando la temperatura esta por debajo de los 32 grados. Leds rojos.
+// Alerta cuando la temperatura esta por encima de los 42 grados. Leds rojos.
  else if(temperature_sh>42.0){ 
 	digitalWrite(Led_alto, HIGH);
 	digitalWrite(Led_bajo, LOW);
