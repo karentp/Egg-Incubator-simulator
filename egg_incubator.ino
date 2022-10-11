@@ -9,7 +9,7 @@
 //*********************************Definicion e inicializacion de los pines********************************
 
 // Pines para el controlador PID
-const int punto_operacion=A3; //Punto de operación
+const int  =A3; //Punto de operación
 float diferencia;
 float rango;
 float porcentaje_humedad;
