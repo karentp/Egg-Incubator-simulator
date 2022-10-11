@@ -1,8 +1,11 @@
 //*******************************************Librerias ********************************
 
 #include <stdio.h>
+#include <util/delay.h>
 #include <Adafruit_PCD8544.h>
-
+#include <avr/io.h>
+#include <stdio.h>
+#include <math.h>
 //*********************************Definicion e inicializacion de los pines********************************
 
 // Pines para el controlador PID
