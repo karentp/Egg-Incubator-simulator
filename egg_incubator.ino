@@ -9,7 +9,7 @@
 //*********************************Definicion e inicializacion de los pines********************************//
 
 // Pines para el controlador PID
-const int PID=A3; //Punto de operación
+const int PIP=A3; //Punto de operación
 float diferencia;
 float rango;
 float porcentaje_humedad;
@@ -28,7 +28,7 @@ float Z = 2.019202697e-07;
 
 // Pines para los LEDS de alerta de temperatura
 const int Led_alto=2;
-const int Led_bajo=3;
+const int Led_bajo=4;
 
 
 const int dht11_humedad= A5; // Pin para el sensor de Humedad
