@@ -1,4 +1,5 @@
-import serial, csv
+import serial
+import csv
 
 lectura_serial = serial.Serial("/tmp/ttyS1", 9600) #Comunicacion con la placa mediante el puerto ttyS1
 
@@ -7,7 +8,7 @@ escritura_archivo = csv.writer(filename)
 
 while (True):
 	datos_escribir = lectura_serial.readline().decode().split(' ')
-    writer.writerow(datos_escribir)
+	escritura_archivo.writerow(datos_escribir)
 
 filename.close()
 
