@@ -14,7 +14,7 @@ float diferencia;
 float rango;
 float porcentaje_humedad;
 float porcentaje_humedad_nuevo;
-
+int control = 0;
 // Pines para el termistor
 const int termistor_principal=A4;
 int tension_v=0;
@@ -134,7 +134,7 @@ float termistor_dar_temperatura(){
 
 
 void loop() { 
-	int control = 0;
+	
 	porcentaje_humedad = (analogRead(A3));
 	alerta();
 	display.print("Temperatura es: \n");
@@ -151,19 +151,22 @@ void loop() {
 	display.print("Intervalo es:");
 	display.print(rango);
 	display.display();
-	delay(500);
+	delay(100);
 	display.clearDisplay();
 	if(digitalRead(rx_tx_com)==LOW){ 
 		if(control==0){
 			Serial.print("Temperatura,Humedad");
 			Serial.print("\n");
+			delay(100);
 		}
 		else{		
     		Serial.print(temperature_sh);
-    		Serial.println(",");
+    		Serial.print(",");
     		Serial.print(analogRead(dht11_humedad)/10.23);
-    		Serial.println("%");
+    		Serial.print("%, ");
 			Serial.print("\n");
+			delay(100);
+			
 		}
 	}
 	
@@ -178,5 +181,5 @@ void loop() {
 	}else {																	
 		rango = resistor_temperatura(0);		
 	}
-  
+   control++;
 }
